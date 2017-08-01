@@ -69,11 +69,14 @@ viewValidation model =
 
 validate : String -> Int -> Bool
 validate password chars =
-  containsNumberOfCharacters password chars && hasLowerCase password && hasUpperCase password && hasNumber password
+  let
+    funcs = [hasLowerCase, hasUpperCase, hasNumber, containsNumberOfCharacters 8]
+  in
+    List.all (\result -> result == True) <| List.map (\func -> func password) funcs
 
 
-containsNumberOfCharacters : String -> Int -> Bool
-containsNumberOfCharacters password chars = String.length password >= chars
+containsNumberOfCharacters : Int -> String -> Bool
+containsNumberOfCharacters chars password = String.length password >= chars
 
 
 hasLowerCase : String -> Bool
