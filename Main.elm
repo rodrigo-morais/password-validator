@@ -1,7 +1,7 @@
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onInput)
-
+import Char exposing (isDigit, isUpper, isLower)
 
 main =
   Html.beginnerProgram { model = model, view = view, update = update }
@@ -59,9 +59,30 @@ viewValidation : Model -> Html Msg
 viewValidation model =
   let
     (color, message) =
-      if model.password == model.passwordAgain then
+      if validate model.password 8 then
         ("green", "OK")
       else
         ("red", "Password do not match!")
   in
     div [ style [("color", color)] ] [ text message ]
+
+
+validate : String -> Int -> Bool
+validate password chars =
+  containsNumberOfCharacters password chars && hasLowerCase password && hasUpperCase password && hasNumber password
+
+
+containsNumberOfCharacters : String -> Int -> Bool
+containsNumberOfCharacters password chars = String.length password >= chars
+
+
+hasLowerCase : String -> Bool
+hasLowerCase password = String.any isLower password
+
+
+hasUpperCase : String -> Bool
+hasUpperCase password = String.any isUpper password
+
+
+hasNumber : String -> Bool
+hasNumber password = String.any isDigit password

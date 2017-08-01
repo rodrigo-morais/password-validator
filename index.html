@@ -8227,8 +8227,27 @@ var _elm_lang$html$Html_Events$Options = F2(
 	function (v1, v2) {
 		return {stopPropagation: v1, preventDefault: v2};
 	});
+var _user$project$Main$hasNumber = function (password) {
+	return A2(_elm_lang$core$String$any, _elm_lang$core$Char$isDigit, password);
+};
+var _user$project$Main$hasUpperCase = function (password) {
+	return A2(_elm_lang$core$String$any, _elm_lang$core$Char$isUpper, password);
+};
+var _user$project$Main$hasLowerCase = function (password) {
+	return A2(_elm_lang$core$String$any, _elm_lang$core$Char$isLower, password);
+};
+var _user$project$Main$containsNumberOfCharacters = F2(
+	function (password, chars) {
+		return _elm_lang$core$Native_Utils.cmp(
+			_elm_lang$core$String$length(password),
+			chars) > -1;
+	});
+var _user$project$Main$validate = F2(
+	function (password, chars) {
+		return A2(_user$project$Main$containsNumberOfCharacters, password, chars) && (_user$project$Main$hasLowerCase(password) && (_user$project$Main$hasUpperCase(password) && _user$project$Main$hasNumber(password)));
+	});
 var _user$project$Main$viewValidation = function (model) {
-	var _p0 = _elm_lang$core$Native_Utils.eq(model.password, model.passwordAgain) ? {ctor: '_Tuple2', _0: 'green', _1: 'OK'} : {ctor: '_Tuple2', _0: 'red', _1: 'Password do not match!'};
+	var _p0 = A2(_user$project$Main$validate, model.password, 8) ? {ctor: '_Tuple2', _0: 'green', _1: 'OK'} : {ctor: '_Tuple2', _0: 'red', _1: 'Password do not match!'};
 	var color = _p0._0;
 	var message = _p0._1;
 	return A2(
