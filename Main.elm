@@ -11,19 +11,21 @@ main =
 
 type alias Model =
   { name : String,
+    age: String,
     password : String,
     passwordAgain : String
   }
 
 model : Model
 model =
-  Model "" "" ""
+  Model "" "" "" ""
 
 
 -- UPDATE
 
 type Msg
   = Name String
+  | Age String
   | Password String
   | PasswordAgain String
 
@@ -32,6 +34,8 @@ update msg model =
   case msg of
     Name name ->
       { model | name = name }
+    Age age ->
+      { model | age = age }
     Password password ->
       { model | password = password }
     PasswordAgain password ->
@@ -44,6 +48,7 @@ view : Model -> Html Msg
 view model =
   div []
       [ buildInput "text" "Name" Name
+      , buildInput "text" "Age" Age
       , buildInput "password" "Password" Password
       , buildInput "password" "Password Confirmation" PasswordAgain
       , viewValidation model
