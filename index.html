@@ -8242,8 +8242,8 @@ var _user$project$Main$containsNumberOfCharacters = F2(
 			_elm_lang$core$String$length(password),
 			chars) > -1;
 	});
-var _user$project$Main$validate = F2(
-	function (password, chars) {
+var _user$project$Main$validate = F3(
+	function (password, confirmation, chars) {
 		var funcs = {
 			ctor: '::',
 			_0: _user$project$Main$hasLowerCase,
@@ -8261,7 +8261,7 @@ var _user$project$Main$validate = F2(
 				}
 			}
 		};
-		return A2(
+		return _elm_lang$core$Native_Utils.eq(password, confirmation) && A2(
 			_elm_lang$core$List$all,
 			function (result) {
 				return _elm_lang$core$Native_Utils.eq(result, true);
@@ -8274,7 +8274,7 @@ var _user$project$Main$validate = F2(
 				funcs));
 	});
 var _user$project$Main$viewValidation = function (model) {
-	var _p0 = A2(_user$project$Main$validate, model.password, 8) ? {ctor: '_Tuple2', _0: 'green', _1: 'OK'} : {ctor: '_Tuple2', _0: 'red', _1: 'Password do not match!'};
+	var _p0 = A3(_user$project$Main$validate, model.password, model.passwordAgain, 8) ? {ctor: '_Tuple2', _0: 'green', _1: 'OK'} : {ctor: '_Tuple2', _0: 'red', _1: 'Password do not match!'};
 	var color = _p0._0;
 	var message = _p0._1;
 	return A2(

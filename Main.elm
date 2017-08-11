@@ -59,7 +59,7 @@ viewValidation : Model -> Html Msg
 viewValidation model =
   let
     (color, message) =
-      if validate model.password 8 then
+      if validate model.password model.passwordAgain 8 then
         ("green", "OK")
       else
         ("red", "Password do not match!")
@@ -67,12 +67,12 @@ viewValidation model =
     div [ style [("color", color)] ] [ text message ]
 
 
-validate : String -> Int -> Bool
-validate password chars =
+validate : String -> String -> Int -> Bool
+validate password confirmation chars =
   let
     funcs = [hasLowerCase, hasUpperCase, hasNumber, containsNumberOfCharacters 8]
   in
-    List.all (\result -> result == True) <| List.map (\func -> func password) funcs
+    password == confirmation && (List.all (\result -> result == True) <| List.map (\func -> func password) funcs)
 
 
 containsNumberOfCharacters : Int -> String -> Bool
