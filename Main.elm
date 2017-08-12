@@ -11,17 +11,24 @@ main =
 
 type alias Model =
   { name : String,
-    age: String,
+    age: Int,
     password : String,
     passwordAgain : String
   }
 
 model : Model
 model =
-  Model "" "" "" ""
+  Model "" 0 "" ""
 
 
 -- UPDATE
+
+updateAge : String -> Int
+updateAge age =
+  case String.toInt age of
+    Ok ageInt -> ageInt
+    _ -> 0
+
 
 type Msg
   = Name String
@@ -29,13 +36,14 @@ type Msg
   | Password String
   | PasswordAgain String
 
+
 update : Msg -> Model -> Model
 update msg model =
   case msg of
     Name name ->
       { model | name = name }
     Age age ->
-      { model | age = age }
+      { model | age = updateAge age }
     Password password ->
       { model | password = password }
     PasswordAgain password ->

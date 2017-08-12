@@ -8314,33 +8314,43 @@ var _user$project$Main$buildInput = F3(
 			},
 			{ctor: '[]'});
 	});
+var _user$project$Main$updateAge = function (age) {
+	var _p1 = _elm_lang$core$String$toInt(age);
+	if (_p1.ctor === 'Ok') {
+		return A2(_elm_lang$core$Debug$log, 'SUCCESS', _p1._0);
+	} else {
+		return A2(_elm_lang$core$Debug$log, 'ERROR', 0);
+	}
+};
 var _user$project$Main$update = F2(
 	function (msg, model) {
-		var _p1 = msg;
-		switch (_p1.ctor) {
+		var _p2 = msg;
+		switch (_p2.ctor) {
 			case 'Name':
 				return _elm_lang$core$Native_Utils.update(
 					model,
-					{name: _p1._0});
+					{name: _p2._0});
 			case 'Age':
 				return _elm_lang$core$Native_Utils.update(
 					model,
-					{age: _p1._0});
+					{
+						age: _user$project$Main$updateAge(_p2._0)
+					});
 			case 'Password':
 				return _elm_lang$core$Native_Utils.update(
 					model,
-					{password: _p1._0});
+					{password: _p2._0});
 			default:
 				return _elm_lang$core$Native_Utils.update(
 					model,
-					{passwordAgain: _p1._0});
+					{passwordAgain: _p2._0});
 		}
 	});
 var _user$project$Main$Model = F4(
 	function (v1, v2, v3, v4) {
 		return {name: v1, age: v2, password: v3, passwordAgain: v4};
 	});
-var _user$project$Main$model = A4(_user$project$Main$Model, '', '', '', '');
+var _user$project$Main$model = A4(_user$project$Main$Model, '', 0, '', '');
 var _user$project$Main$PasswordAgain = function (v1) {
 	return {ctor: 'PasswordAgain', _0: v1};
 };
